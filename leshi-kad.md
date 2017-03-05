@@ -1,0 +1,113 @@
+# 乐视--阿栋
+1. jquery获取父元素
+
+    ```
+    <ul class="demo item">
+          <li class="item"><a href="" class="link"></a>Buy milk</li>
+          <li class="item"><a href="" class="link"></a>Take the dog for a walk</li>
+          <li><a href="" class="link"></a>Exercise</li>
+          <li>Play music</li>
+          <li></li>
+    </ul>
+    ```
+    1. parent([expr]):取得所有匹配元素的直接父元素的元素集合。
+    ```
+    $('.link').parent('item');
+    ```
+    结果是
+    ```
+    <li class="item"><a href="" class="link"></a>Buy milk</li>
+    <li class="item"><a href="" class="link"></a>Take the dog for a walk</li>
+    ```
+    2. :parent选择器
+    匹配含有子元素或者文本的元素
+    ```
+    $('li:parent');
+    ```
+    结果是：
+    ```
+    <li class="item"><a href="" class="link"></a>Buy milk</li>
+    <li class="item"><a href="" class="link"></a>Take the dog for a walk</li>
+    <li><a href="" class="link"></a>Exercise</li>
+    <li>Play music</li>
+    ```
+    3. parents([expr]):取得所有匹配元素的所有祖先元素的元素集合。
+    ```
+    $('.link').parents('.item');
+    ```
+    结果是：
+    ```
+    <li class="item"><a href="" class="link"></a>Buy milk</li>
+    <li class="item"><a href="" class="link"></a>Take the dog for a walk</li>
+    <ul class="demo item">
+          <li class="item"><a href="" class="link"></a>Buy milk</li>
+          <li class="item"><a href="" class="link"></a>Take the dog for a walk</li>
+          <li><a href="" class="link"></a>Exercise</li>
+          <li>Play music</li>
+          <li></li>
+    </ul>
+    ```
+    4. closest([expr]):首先检查当前元素，如果匹配直接返回当前元素本身，如果不匹配则向上查找父元素，知道找到匹配的父元素并返回该父元素，如果没找到则返回空的jquery对象。
+
+    parents()和closest()的区别：closest从当前元素开始查找，parents从父元素开始查找。closest找到匹配元素就停止，返回0个或1个元素，parents会一直向上查找到根元素，然后把这些元素放进一个临时集合中，再用给定的选择器表达式去过滤，返回0个或1个或多个元素。
+2. jquery绑定事件几种方式
+
+    4种方法：bind(),live(),delegate(),on()
+
+    bind()函数只能针对已经存在的元素进行事件的设置；但是live(),on(),delegate()均支持未来新添加元素的事件设置；官方有一个推荐就是尽量使用on,其他三个方法都是内部调用on来完成的，直接使用on可以提高效率。
+
+    bind():在选择到的元素上绑定特定事件类型的监听函数 **bind()函数只能针对已经存在的元素进行事件的设置,不支持动态绑定** bind()支持jquery的所有版本
+    ```
+    bind: function( types, data, fn ) {
+        return this.on( types, null, data, fn );
+    }
+    $('#myol li').bind('click',getHtml);
+    ```
+    1. type:事件类型，如click、change、mouseover等;
+    2. data:传入监听函数的参数，通过event.data取到。可选;
+    3. function:监听函数，可传入event对象，这里的event是jQuery封装的event对象，与原生的event对象有区别，使用时需要注意
+
+    live():不是将监听器绑定在自己身上，而是绑定在this.context。context是元素的限定范围，通常是document。即利用事件委托机制。用event.currentTarget来获取到当前捕捉到事件的 节点。jquery1.9以下支持，1.9已经删除该方法。
+    ```
+    live: function( types, data, fn ) {
+        jQuery( this.context ).on( types, this.selector, data, fn );
+        return this;
+    }
+    ```
+
+    delegate():监听器绑定在调用此方法的元素上。jquery1.4.2+支持该方法
+    ```
+    delegate: function( selector, types, data, fn ) {
+        return this.on( types, selector, data, fn );
+    }
+    ```
+    selector:用来指定触发事件的目标元素
+
+    on():
+    ```
+    on(type,[selector],[data],fn)
+    ```
+3. 原生js遇到的兼容问题
+4. 原生js移除一个结点
+
+    removeChild()
+5. 列举CSS hack
+
+    CSS Hack大致有3种表现形式，CSS属性前缀法、选择器前缀法以及IE条件注释法（即HTML头部引用if IE）Hack，实际项目中CSS Hack大部分是针对IE浏览器不同版本之间的表现差异而引入的。
+    1. 属性前缀法(即类内部Hack)：例如 IE6能识别下划线 "_" 和星号 " * "，IE7能识别星号" * "，但不能识别下划线"_"，IE6~IE10都认识"\9"，但firefox前述三个都不能认识。
+    2. 选择器前缀法(即选择器Hack)：例如IE6能识别*html .class{}，IE7能识别*+html .class{}或者*:first-child+html .class{}。
+    3. IE条件注释法(即HTML条件注释Hack)：针对所有IE(注：IE10+已经不再支持条件注释)： <!--[if IE]>IE浏览器显示的内容 <![endif]-->，针对IE6及以下版本： <!--[if lt IE 6]>只在IE6-显示的内容 <![endif]-->。这类Hack不仅对CSS生效，对写在判断语句里面的所有代码都会生效。
+6. CSS3实现动画几种方式，区别。
+
+    1. transform：rotate|scale|translate|skew.可以作为transition中需要变化的属性
+    2. transition: property duration timing-function delay;只有开始态和结束态，不支持自定义中间的状态。
+    3. animation：name duration timing-function delay iteration-count direction 可以灵活地设置动画帧
+7. 做过HTML5移动端页面吗？怎么移动端适配
+
+    1. rem
+    2. 响应式布局，百分比
+    3. @media
+    （待整理）
+8. 前端的构建工具：webpack，列举几个loader，json-loader,css-loader
+9. mysql和mongoDB的区别。数据库怎么选择。
+10. 介绍你写的爬虫系统。批量爬取被封ip怎么解决？
