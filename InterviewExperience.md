@@ -646,7 +646,7 @@ console.log(str.split(" ").reverse().join(" "));
 2. **HTML5中不再支持或不建议下面哪些元素？**
 
    a. ```<font>```不支持   
-   b.```<center>```HTML5新标签，文本水平居中  
+   b.```<center>```不支持
    c.```<p>```    
    d.```<time>```HTML5新标签
 

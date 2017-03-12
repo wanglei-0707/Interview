@@ -33,8 +33,10 @@
 7. **清单文件的MIME类型是**
 
     text/cache-manifest
-8. **<img src="url.gif" dynsrc="url.avi">表示尚未完全读入avi文件时，先在AVI播放区域显示该图像，文件下载完成后，图片被屏蔽，显示视频文件。
+8. **<img src="url.gif" dynsrc="url.avi">表示尚未完全读入avi文件时，先在AVI播放区域显示该图像，文件下载完成后，图片被屏蔽，显示视频文件。**
+
 ## CSS
+
 1. **简述一下src与href的区别**
 
     href 是指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的链接，用于超链接。
@@ -71,6 +73,7 @@ input:-webkit-autofill {
     1. link属于XHTML标签，除了加载CSS外，还能用于定义RSS, 定义rel连接属性等作用；而@import是CSS提供的，只能用于加载CSS;
     2. 页面被加载的时，link会同时被加载，而@import引用的CSS会等到页面被加载完再加载;
     3. import是CSS2.1 提出的，只在IE5以上才能被识别，而link是XHTML标签，无兼容问题;
+    4. import可以还可以在css中再引入其他css文件，但是会增加http请求。import必须在样式表头部最先声明，并且其后的分号是必须的。
 
 7. **介绍一下你对浏览器内核的理解？**
 
@@ -94,19 +97,14 @@ input:-webkit-autofill {
 10. **CSS选择器，nth-chlid(n)和nth-type(n)区别**
 
     ele:nth-of-type(n)是指父元素下第n个ele元素,而ele:nth-child(n)是指父元素下第n个元素且这个元素为ele，若不是，则选择失败。
-11. **link和@import区别**
 
-    1. link是xhtml标签，除了可以加载css，还可以定义RSS，引入图标等其他事务，并且无兼容问题，@import是css范畴的，只能加载css，并且是在css2.1提出的，低版本不支持。
-    2. link引用css时，在页面载入时同时加载，@important需要页面网页完全载入以后加载
-    3. link支持使用js控制dom改变样式，而@import不支持。
-    4. import可以还可以在css中再引入其他css文件，但是会增加http请求。import必须在样式表头部最先声明，并且其后的分号是必须的。
-12. **CSS hack**
+11. **CSS hack**
 
     CSS Hack大致有3种表现形式，CSS属性前缀法、选择器前缀法以及IE条件注释法（即HTML头部引用if IE）Hack，实际项目中CSS Hack大部分是针对IE浏览器不同版本之间的表现差异而引入的。
     1. 属性前缀法(即类内部Hack)：例如 IE6能识别下划线 "_" 和星号 " * "，IE7能识别星号" * "，但不能识别下划线"_"，IE6~IE10都认识"\9"，但firefox前述三个都不能认识。
     2. 选择器前缀法(即选择器Hack)：例如IE6能识别*html .class{}，IE7能识别*+html .class{}或者*:first-child+html .class{}。
     3. IE条件注释法(即HTML条件注释Hack)：针对所有IE(注：IE10+已经不再支持条件注释)： <!--[if IE]>IE浏览器显示的内容 <![endif]-->，针对IE6及以下版本： <!--[if lt IE 6]>只在IE6-显示的内容 <![endif]-->。这类Hack不仅对CSS生效，对写在判断语句里面的所有代码都会生效。
-13. **对内联元素进行float之后算是块级还是内联元素？**
+12. **对内联元素进行float之后算是块级还是内联元素？**
 
     块级
 ## JavaScript
@@ -364,3 +362,42 @@ input:-webkit-autofill {
 6. **200和304读取缓存的区别**
 
     浏览器第一次加载资源的时候，返回200，意思是成功获取，并会在浏览器的缓存中记录下max-age，第二次访问的时候，浏览器回去判断这个资源在缓存中存不存在，如果有的话，再判断mag-age有没有过期，没有过期，就直接读取缓存，不会和服务器交互，如果过期，就去向服务器请求，服务器如果发现资源没有改变，就会返回304，浏览器还是会去读取缓存。
+7. **浏览器清除缓存的方法**
+
+    1. meta元数据：HTTP-EQUIV属性为名称/值对提供了名称，CONTENT提供了值。使用带有 http-equiv 属性的 <meta> 标签时，服务器将把名称/值对添加到发送给浏览器的响应头部。
+    ```
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <META HTTP-EQUIV="expires" CONTENT="0">
+    ```
+    2. jquery AJAX清除缓存：
+    ```
+    $.ajax({
+         url:'www.haorooms.com',
+         dataType:'json',
+         data:{},
+         beforeSend :function(xmlHttp){
+            xmlHttp.setRequestHeader("If-Modified-Since","0");
+            xmlHttp.setRequestHeader("Cache-Control","no-cache");
+         },
+         success:function(response){
+             //操作
+         }
+         async:false
+    });
+    //也可以直接将cache设置为false
+    $.ajax({
+         url:'www.haorooms.com',
+         dataType:'json',
+         data:{},
+         cache:false,
+         ifModified :true ,
+         success:function(response){
+             //操作
+         }
+         async:false
+    });
+
+    ```
+    3. 在url后面添加一个随机数 "?ran="+Math.random()
+    4. 在url后面添加一个时间戳 "?timestamp="+new Date().getTime()
