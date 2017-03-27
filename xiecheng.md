@@ -1,0 +1,116 @@
+## 携程
+## 一面 3.17
+1. 自我介绍，对于百度前端技术学院问了一下具体的形式，有没有导师带领
+2. vue的特点，了解其他的框架吗
+3. == 和 === 用双等判断null和undefined返回什么
+4. 事件绑定和事件委托，事件委托的原理
+5. AJAX跨域请求,jsonp
+6. 浏览器缓存的方法，cookie和localStorage的区别，cookie有个数的限制吗，代码怎么清除cookie
+    1. http缓存：响应头部添加cache-control和expires
+    2. cookie
+    3. localStorage
+    4. sessionStorage
+    5. application cache离线访问
+7. 状态码，500,403,304 304有没有和服务器交互的过程
+8. js的基本数据类型,怎么判断类型，怎么判断数组，我说了三种判断数组的方法，他问这些都是你在实践中用到的还是看书看到的。
+9. 平时都是在哪里关注前端最新资讯
+10. html、css、js侧重于哪一块，他说他们这三个都是分开的。
+11. 都看过哪些js的书
+
+##二面 3.22
+1. 看我参加了百度前端技术学院，你觉得这个模式对前端的学习有什么帮助呢
+2. 当时除了用vue框架，还需要用别的框架吗。这里我给他解释这个平台并没有要求用什么框架，都是自己的选择。
+3. 你有review别人的代码吗
+4. js实现对兼容性有什么要求吗，就是用ES5最标准的特性吗？这个我一开始没明白，就重复了一遍，是用ES5的新特性吗？然后他就说OK。。。就下一个问题了。。。
+5. 这个里面的代码是要提交到GitHub上还是说提交到他的网站上
+6. 你的简历上好像没有GitHub的地址，本来想去看一下的
+7. 我问你一个工程上的问题，假设有一个项目使用require.js写的，但是我又想用最新的ES6的语言特性，有什么办法可以满足我这个工程化的需求。
+
+    我回答用babel进行转译，然后他说但是babel默认转的是node.js的模块，这个项目是用require.js写的，你有用过require.js吗？我说没实际用过，但是了解过，他说，那你写vue那个项目使用ES2015的那种import的方式是吗，我说是的。然后他说我们这边主要还是用require.js开发，除了新项目使用ES6，旧项目都是用require.js开发，所以我们现在的做法是babel其实可以设置你要转成什么模块规范，require.js也是其中的一个编译的目标。把我们的源码分成两个文件夹，一个是ES5，一个是ES6，实时编译ES6的代码成ES5，因为这两个文件夹是镜像的，所以可以在完全不改动的情况下进行ES2016的开发，它会编译到ES5的文件夹中，打包时打包成ES5。
+8. 我看你还学习了一些后端的语言，你对前端后端的偏好是什么
+
+    我就说是偏向前端，然后他说其实js可以用node.js做后端，所以你转前端是指node.js也完全不关心吗
+
+## 一面--阿栋
+1. 什么时间可以实习？你想做前端还是后端
+2. 有没有实习经历
+3. 做的前端开发的项目
+4. 闭包什么时候使用？闭包的定义。
+5. 说一下promise的基本用法。resolve和reject的作用。多个数据源的请求数据回来之后再处理，怎么用promise实现。
+6. js中的面向对象和java的面向对象区别
+7. es6中的剪头函数
+8. 快速排序思想，是稳定还是不稳定排序？
+9. 你有什么问题或要求？
+
+## 二面 -- 阿栋
+* 垂直居中
+* CSS3新特性
+
+    1. 选择器：nth-child()、not()、first-child、:checked、:nth-of-type()
+    2. 多列布局
+    3. border-radius、rgba()颜色透明、hsla()颜色透明
+    4. 渐变效果: gradient(linear, 0% 0%, 100% 0%, from(#2A8BBE),to(#FE280E))
+    5. 阴影效果：text-shadow、box-shadow
+    6. 反射效果：box-reflect：blow 10px;
+    7. transition、transform、animation
+* 用代码画图有什么方法：canvas、svg、css
+* 5个以上不同类型的HTML5标签。说一下H5的新特性。
+
+    1. 用于绘画：canvas, figure, figcaption,
+    2. 媒介回放：video, audio, source
+    3. 样式：nav, header, footer, article, section, aside, hgroup
+    4. 表单：datalist定义下拉列表, output定义输出的类型
+    5. 导航：nav
+    6. 格式：time, mark, progress
+
+    H5新特性：画布canvas、视频音频、本地存储、离线缓存、地理位置、输入框类型：url、email、number、range、date、week、month、time。placeholder属性，autofocus属性，contenteditable属性，required等
+* localStorage和sessionStorage的区别，localStorage的存储上限。
+* ES6的新特性
+* 动画的实现方法。css3的animation、js的setInterval和requestAnimationFrame
+
+    setInterval方法实现的动画不是分精确，为它传入的第二个参数实际上只是指定了把动画代码添加到浏览器UI线程队列中已等待执行的时间，如果队列中已经加入了其他任务，那动画代码就要等待前面的任务完成后再执行。
+
+    火狐浏览器实现的mozRequestAnimationFrame方法接收一个函数，即在重绘屏幕前调用的一个函数，这个函数负责改变下一次重绘时的DOM样式。因为mozRequestAnimationFrame只运行一次传入的函数，因此在需要再次修改UI从而生成动画时，需要再次手动调用它。传给mozRequestAnimationFrame作为参数的函数接受一个参数，是一个时间码，拜师下一次重绘的实际发生时间，mozRequestAnimationFrame会根据这个时间码设定将来的某个时刻进行重绘，mozAnimationStartTime中包含上一次重绘的时间码，用传入回调函数的时间码减去这个时间码，就能得到屏幕上重绘下一组变化之前经过的时间。
+    ```
+    function draw(timestamp){
+        var diff = timestamp - startTime;
+        startTime = timestamp;
+        mozRequestAnimationFrame(draw);
+    }
+    var startTime = mozAnimationStartTime;//获取开始时间必须放在回调函数的外面
+    mozRequestAnimationFrame(draw);
+    ```
+    chrome和IE浏览器分别实现了类似的webkitRequestAnimationFrame()和msRequestAnimationFrame()，但是不会给传入的回调函数提供时间码，因此无法知道下一次重绘发生在什么时候。因此也就没有提供相应的mozAnimationStartTime。但是chrome增加了一个可选的参数，表示将要发生变化的DOM元素。
+    ```
+    //实现浏览器兼容
+    function draw(timestamp){
+        var drawStart = timestamp || Date.now();
+        var diff = drawStart - startTime;
+        startTime = drawStart;
+        requestAnimationFrame(draw);
+    }
+    var requestAnimationFrame = window.requestAnimationFrame || window.mozAnimationStartTime || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+    var startTime = window.mozAnimationStartTime || Date.now();
+    requestAnimationFrame(draw);
+    ```
+* Vue实现数据双向绑定。
+* webpack特性，用过哪些loader，有什么好处。
+* 还用过其它的框架吗？有用过其它的库吗？有用过前端模版吗？
+
+    前端模板：ejs，jade，pug
+* 对jquery的方法进行分类
+    DOM属性：addClass(),removeClass(),attr(), html(), val()......
+    操作DOM：find(),append(),remove(),css()......
+    特效：show(),hide(),fadeIn(),fadeOut(),slideUp(),slideDown(),animate()......
+    事件：bind(), on(), delegate(), toggle(),hover()......
+* 用node做过什么？
+* 用过socket吗？我说用过websocket。
+
+    WebSocket protocol 是HTML5一种新的协议(protocol)。它是实现了浏览器与服务器全双工通信.很多网站为了实现即时通讯(real-time)，所用的技术都是轮询(polling)。轮询是在特定的的时间间隔(time interval)（如每1秒），由浏览器对服务器发出HTTP request，然后由服务器返回最新的数据给客服端的浏览器。这种传统的HTTP request d的模式带来很明显的缺点 – 浏览器需要不断的向服务器发出请求(request)，然而HTTP request 的header是非常长的，里面包含的数据可能只是一个很小的值，这样会占用很多的带宽。比较新的技术去做轮询的效果是Comet – 用了AJAX。但这种技术虽然可达到全双工通信，但依然需要发出请求(reuqest)。在 WebSocket API，浏览器和服务器只需要要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。在此WebSocket 协议中，为我们实现即使服务带来了两大好处：互相沟通的Header是很小的-大概只有2Bytes, 服务器可以主动传送数据给客户端.
+
+    Web Worker提供了一个简单的方法使得 web 内容能够在后台运行脚本。一旦 worker 创建后，它可以向由它的创建者指定的事件监听函数传递消息，这样该 worker 生成的所有任务就都会接收到这些消息worker 线程能够在不干扰 UI 的情况下执行任务。另外，它还能够使用 XMLHttpRequest (虽然 responseXML 与 channel 两个属性值始终是 null)来执行 I/O 操作。
+* 数组去重。
+* 说一些状态码
+* 做的项目有遇到什么困难。
+* 你现在在大连，你在上海会有问题吗？
+* 你有什么问题吗？

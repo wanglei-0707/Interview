@@ -1064,7 +1064,7 @@ while(str = read_line()){
     document.domain = "xxx.com";
     ```
     这样这两个页面就可以互相操作了。也就是实现了同一基础域名之间的"跨域"。
-    2. jsonp:通过script标签引入一个js文件，这个js文件载入成功后会执行我们在url参数中指定的函数，并且会把我们需要的json数据作为参数传入。所以jsonp是需要服务器端的页面进行相应的配合的。比如：有个a.html页面，它里面的代码需要利用ajax获取一个不同域上的json数据，假设这个json数据地址是http://example.com/data.php, 那么a.html中的代码就可以这样：
+    2. jsonp:通过script标签引入一个js文件，这个js文件载入成功后会执行我们在url参数中指定的函数，并且会把我们需要的json数据作为参数传入。所以jsonp是需要服务器端的页面进行相应的配合的。缺点是JSONP是从其他域中加载代码执行，安全性难以保证，要确保请求是否失败并不容易。比如：有个a.html页面，它里面的代码需要利用ajax获取一个不同域上的json数据，假设这个json数据地址是http://example.com/data.php, 那么a.html中的代码就可以这样：
     ```
     <script>
         function dosomething(jsondata){
@@ -1149,6 +1149,7 @@ while(str = read_line()){
         }
     </script>
     ```
+    5. 图像ping：使用img标签，或者动态创建提箱。一个网页可以从任何网页中加载图像。将img的onload事件和onerror事件指定同一个函数，这样无论是什么响应，只要请求完成，就能得到通知。缺点是只能使用get请求，无法访问服务器的响应文本。因此只能用于浏览器向服务器的单向通信。
 
 7. **从地址栏中输入地址，按下回车到页面渲染出来的整个过程**
 
