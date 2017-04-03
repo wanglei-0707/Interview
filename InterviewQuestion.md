@@ -36,6 +36,9 @@
     text/cache-manifest
 8. **<img src="url.gif" dynsrc="url.avi">表示尚未完全读入avi文件时，先在AVI播放区域显示该图像，文件下载完成后，图片被屏蔽，显示视频文件。**
 
+9. **form表单不刷新提交**
+
+    除了使用ajax方法实现不刷新提交，还可以使用下面这种方法实现form不刷新提交数据。给form加一个target属性，将这个属性设置为一个隐藏的iframe的id，这样，刷新的页面是我们隐藏的iframe，表单本身不会刷新。
 ## CSS
 
 1. **简述一下src与href的区别**

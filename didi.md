@@ -28,7 +28,7 @@
 
     MVP
     ![MVP](img/mvp.png)
-    通信是双向的，view和model不发生联系，都通过Presenter传递。
+    通信是双向的，view和model不发生联系， 都通过Presenter传递。
 
     MVVM：
     ![MVVM](img/mvvm.png)

@@ -16,11 +16,11 @@
         1. Number()可将任意数据类型转换为数值。null->0,undefined->NaN,空字符串->0
         2. Boolean()
         3. String():null->null,undefined->undefined,其他值调用toString()方法转换。
+        4. ==
     3. 弱类型转换：
         1. 字符串转数值： +str, str-0
         2. 数值转字符串： 123 + ''
         3. toString()
-        4. ==
 6. js里面的== 和===的区别
 7. 做项目的时候偏向PC还是移动端
 8. 浮动的属性，表现上有什么特点？对内联元素进行float之后算是块级还是内联元素？
