@@ -7,7 +7,7 @@ django 第一次响应来自某个客户端的请求时，会在服务器端随�
     3. 在处理 POST 请求之前，django 会验证这个请求的 cookie 里的 csrftoken 字段的值和提交的表单里的 csrfmiddlewaretoken 字段的值是否一样。如果一样，则表明这是一个合法的请求，否则，这个请求可能是来自于别人的 csrf 攻击，返回 403 Forbidden.
     4. 在所有 ajax POST 请求里，添加一个 X-CSRFTOKEN header，其值为 cookie 里的 csrftoken 的值
 ### Django 里如何使用 CSRF 防护
-    1. 首先，最基本的原则是：GET 请求不要用有副作用。也就是说任何处理 GET 请求的代码对资源的访问都一定要是“只读“的。
+    1. 首先，最基本的原则是：GET 请求不要用有副作用。也就是说任何处理 GET 请求的代码对资源的访问都一定要是“只读”的。
     2. 要启用 django.middleware.csrf.CsrfViewMiddleware 这个中间件
     3. 再次，在所有的 POST 表单元素时，需要加上一个 {% csrf_token %} tag
     4. 在渲染模块时，使用 RequestContext。RequestContext 会处理 csrf_token 这个 tag,  从而自动为表单添加一个名为 csrfmiddlewaretoken 的 input
@@ -149,7 +149,7 @@ $(document).on("click",".course_paginator .item_page",function(){
 course_list = Course.objects.all()[0:20]
 course_list = Course.objects.all()[20:40]
 ```
-这种方式与下面这种方式是不一样的,python 的 QuerySets 是惰性的，这意味着只在对数据库进行求值之后才会对它们执行查询，这会比立即执行查询的速度更快。这种惰性利用了 Python 的分片（slicing）功能。这样做并没有先请求所有的记录，然后对所需要的记录进行分片，而是在实际的查询中使用了 5 作为 OFFSET、10 作为 LIMIT，这可以极大地提高性能。
+这种方式与下面这种方式是不一样的,python 的 QuerySets 是惰性的，这意味着只在对数据库进行求值之后才会对它们执行查询，这会比立即执行查询的速度更快。这种惰性利用了 Python 的分片（slicing）功能。这样做并没有先请求所有的记录，然后对所需要的记录进行分片，而是在实际的查询中使用了 20 作为 OFFSET、20 作为 LIMIT，这可以极大地提高性能。
 ```
 course_list = Course.objects.all()
 course_list = course_list[0:20]

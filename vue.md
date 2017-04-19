@@ -19,6 +19,12 @@ vue的整个生命周期包括：
 　　 3. data中的数据变化时，文本节点的内容同步变化。即model => view的变化。
 要实现任务一，需要对DOM进行编译，这里有一个知识点：DocumentFragment。Vue进行编译时，就是将挂载目标的所有子节点劫持到DocumentFragment中，经过一番处理后，再将DocumentFragment整体返回插入挂载目标。
 
+    1. Observer监听：利用Object.defineProperty，将要观察的对象，转化成getter/setter，以便拦截对象赋值与取值操作，称之为Observer；
+    2. Compiler解析：对每个元素节点的指令进行扫描和解析，根据指令模板替换数据，以及绑定相应的更新函数，称之为Compiler；
+    3. Watcher订阅：将Compile的解析结果，与Observer所观察的对象连接起来，建立关系，在Observer观察到对象数据变化时，接收通知，同时更新DOM，称之为Watcher；
+    4. 最后，需要一个公共入口对象，接收配置，协调上述三者，称为Vue;
+
+    采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。
 ### 虚拟DOM
 为了减少频繁的DOM操作产生的性能问题，引进了虚拟DOM机制。所有的DOM构造都是通过虚拟DOM进行，每当数据变化时，都会重新构造整个DOM树，然后将整个DOM树与上一次的DOM数进行对比，得到DOM结构的区别。然后仅仅将需要变化的部分进行实际的浏览器DOM更新。尽管每一次都需要构造完整的虚拟DOM树，但是因为虚拟DOM是内存数据，性能是极高的，二队实际DOM知识进行不同部分的操作，因而能达到提高性能的目的。
 

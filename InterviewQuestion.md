@@ -39,6 +39,17 @@
 9. **form表单不刷新提交**
 
     除了使用ajax方法实现不刷新提交，还可以使用下面这种方法实现form不刷新提交数据。给form加一个target属性，将这个属性设置为一个隐藏的iframe的id，这样，刷新的页面是我们隐藏的iframe，表单本身不会刷新。
+10. **低版本浏览器不支持HTML5标签怎么解决**
+
+    ```
+    <script>
+        var tags = ["article","aside","figure","footer","header","hgroup","nav","section","video"]
+        function(tags){
+            for(var i=0; i<tags.length; i++)
+                document.createElement(tags[i]);
+        })(tags);
+    </script>
+    ```
 ## CSS
 
 1. **简述一下src与href的区别**
@@ -75,9 +86,9 @@ input:-webkit-autofill {
 6. **页面导入样式时，使用link和@import有什么区别？**
 
     1. link属于XHTML标签，除了加载CSS外，还能用于定义RSS, 定义rel连接属性等作用；而@import是CSS提供的，只能用于加载CSS;
-    2. 页面被加载的时，link会同时被加载，而@import引用的CSS会等到页面被加载完再加载;
+    2. 页面被加载的时候，link会同时被加载，而@import引用的CSS会等到页面被加载完再加载;
     3. import是CSS2.1 提出的，只在IE5以上才能被识别，而link是XHTML标签，无兼容问题;
-    4. import可以还可以在css中再引入其他css文件，但是会增加http请求。import必须在样式表头部最先声明，并且其后的分号是必须的。
+    4. import还可以在css中再引入其他css文件，但是会增加http请求。import必须在样式表头部最先声明，并且其后的分号是必须的。
 
 7. **介绍一下你对浏览器内核的理解？**
 
@@ -231,6 +242,23 @@ input:-webkit-autofill {
     ele.attachEvent('[on]type', fun);
     ```
     IE事件模型只支持冒泡，不支持捕获，所以没有第三个参数，第一个表示事件类型的参数必须加上‘on’，可以绑定多个事件处理函数，处理函数内部的this关键字永远都指向window这个全局对象。要想获得event对象必须通过window.event方式获得。
+12. **图片预加载与懒加载**
+
+    1. 预加载：提前加载图片，当用户需要查看时可直接从本地缓存中渲染。预加载可以说是牺牲服务器前端性能，换取更好的用户体验，这样可以使用户的操作得到最快的反馈。实现方式：css(background),html(<img>),js(Image).常用的是js的new Image()，设置其src来实现预加载，再使用onload方法回调预加载完成事件。
+    ```
+    function preLoadImage(url, callback){
+        var img = new Image();
+        img.src = url;
+        img.onload = function(){
+            img.onload = null;
+            callback.call(img);
+        }
+    }
+    ```
+    2. 懒加载：延迟加载图片或符合某些条件时才加载某些图片。懒加载主要目的是作为服务器前端的优化，减少请求数或延迟请求数。实现方式：
+        1. 纯粹的延迟加载：setTimeout或setInterval
+        2. 条件加载：符合某些条件，或触发了某些事件才开始异步下载
+        3. 可视区加载：仅加载用户可以看到的区域，主要通过监控滚动条来实现，一般会在距用户看到某图片前一定距离开始加载。
 ## jquery
 1. jquery获取父元素
 
@@ -417,3 +445,19 @@ input:-webkit-autofill {
     ```
     3. 在url后面添加一个随机数 "?ran="+Math.random()
     4. 在url后面添加一个时间戳 "?timestamp="+new Date().getTime()
+8. **SEO**
+
+    SEO全称：Search Engine Optimization，即搜索引擎优化.
+    优化内容：
+    1. 内部优化：
+        1. META标签：title，keywords，description的优化
+        2. 内部链接的优化：相关性链接(tag标签)，锚文本链接，导航链接，图片链接
+        3. 网站内容更新：每天保持站内的更新
+        4. 代码压缩改进：网站主页唯一性，网站内页链向主页，
+    2. 外部优化：
+        1. 外部链接类别：博客，论坛，新闻，贴吧，百科，社区，空间，微信，微博等相关信息网等尽量保持链接的多样性。
+        2. 外链组建：每天添加一定数量的外部链接，使关键词排名稳定提升
+        3. 友链互换：与一些相关性比较高，整体质量比较好的网站交换友情链接，巩固稳定关键词排名
+    3. 链接优化：
+        1. 网站结构优化：建立网站地图，每个网页最多距离首页四次点击就能到达，网站的导航系统最好使用文字链接
+        2.
