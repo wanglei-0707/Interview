@@ -53,6 +53,20 @@
             width: 3000px;
             background: red;
         }
+        .animation {
+            width: 200px;
+            height:200px;
+            background: red;
+            animation: move 2s linear infinite alternate;
+        }
+        @keyframes move {
+            0% {
+                transform: translate(-100px, 0);
+            }
+            100% {
+                transform: translate(100px, 0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -61,5 +75,8 @@
         <li>222</li>
         <li>333</li>
     </ul>
+    <div class="btn">stop</div>
+    <div class="animation"></div>
+    <script src="a.js"></script>
 </body>
 </html>
